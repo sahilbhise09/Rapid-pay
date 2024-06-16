@@ -1,12 +1,24 @@
 import React from "react";
-import { Row, Form, Col, Input, Button } from "antd";
+import { Row, Form, Col, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { LoginUser } from "../../apicalls/users";
 
 const Index = () => {
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log("values received from forms ", values);
+  const onFinish = async (values) => {
+    // console.log("values received from forms ", values);
+    try {
+      const response = await LoginUser(values);
+      if (response.success) {
+        message.success(response.message);
+        navigate("/dashboard");
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   return (
