@@ -1,11 +1,23 @@
 import React from "react";
-import { Row, Form, Col, Input } from "antd";
+import { Row, Form, Col, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { RegisterUser } from "../../apicalls/users";
 
 const Index = () => {
   const navigate = useNavigate();
-  const onFinish = (values) => {
-    console.log("values recieved from forms ", values);
+  const onFinish = async (values) => {
+    // console.log("values recieved from forms ", values);
+    try {
+      const response = await RegisterUser(values);
+      if (response.success) {
+        message.success(response.message);
+        navigate("/login");
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
   return (
     <div className="m-5">
@@ -57,7 +69,7 @@ const Index = () => {
           <Col span={6}>
             <Form.Item
               label="Mobile"
-              name="mobileNumber"
+              name="phoneNumber"
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
