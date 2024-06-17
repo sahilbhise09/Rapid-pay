@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice";
 import { hideLoading, showLoading } from "../redux/loadersSlice";
+import DefaultLayout from "./DefaultLayout";
 
 const ProtectedRoute = (props) => {
   // const [userData, setUserData] = useState(null);
@@ -40,8 +41,11 @@ const ProtectedRoute = (props) => {
   return (
     user && (
       <div>
-        {user.email}
-        {props.children}
+        <DefaultLayout>
+          {" "}
+          {user.email}
+          {props.children}
+        </DefaultLayout>
       </div>
     )
   );

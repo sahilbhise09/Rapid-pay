@@ -1,6 +1,6 @@
 :root {
-  --primary: #004835;
-  --secondary: #3b2600;
+  --primary: #002e2a;
+  --secondary: #af8703;
 }
 
 .bg-primary {
@@ -16,7 +16,7 @@
 }
 
 .text-secondary {
-  background-color: var(--secondary) !important;
+  color: var(--secondary) !important;
 }
 
 .text-white {
