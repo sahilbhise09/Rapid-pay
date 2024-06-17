@@ -10,9 +10,13 @@ import Register from "./pages/Register/index.js";
 import Home from "./pages/Home/index.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";
 import PublicRoute from "./components/PublicRoute.js";
+import Loader from "./components/Loader.js";
+import { useSelector } from "react-redux";
 function App() {
+  const { loading } = useSelector((state) => state.loaders);
   return (
     <div>
+      {loading && <Loader />}
       <BrowserRouter>
         <Routes>
           <Route

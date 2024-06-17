@@ -2,13 +2,18 @@ import React from "react";
 import { Row, Form, Col, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apicalls/users";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/loadersSlice";
 
 const Index = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     // console.log("values recieved from forms ", values);
     try {
+      dispatch(showLoading());
       const response = await RegisterUser(values);
+      dispatch(hideLoading());
       if (response.success) {
         message.success(response.message);
         navigate("/login");
@@ -16,6 +21,7 @@ const Index = () => {
         message.error(response.message);
       }
     } catch (error) {
+      dispatch(hideLoading());
       message.error(error.message);
     }
   };

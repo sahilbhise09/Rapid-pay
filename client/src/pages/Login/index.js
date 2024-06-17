@@ -2,14 +2,19 @@ import React from "react";
 import { Row, Form, Col, Input, Button, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../../apicalls/users";
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/loadersSlice";
 
 const Index = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onFinish = async (values) => {
     // console.log("values received from forms ", values);
     try {
+      dispatch(showLoading());
       const response = await LoginUser(values);
+      dispatch(hideLoading());
       if (response.success) {
         message.success(response.message);
         localStorage.setItem("token", response.data);
@@ -19,6 +24,7 @@ const Index = () => {
         message.error(response.message);
       }
     } catch (error) {
+      dispatch(hideLoading());
       message.error(error.message);
     }
   };

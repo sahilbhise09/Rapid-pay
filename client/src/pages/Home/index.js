@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-
+import React from "react";
 const Index = () => {
   return <div>HOME</div>;
 };
