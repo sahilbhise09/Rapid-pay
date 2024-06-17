@@ -133,16 +133,3 @@ const DefaultLayout = ({ children }) => {
 
 export default DefaultLayout;
 
-//vaibhav wagh
-//satshil
-//me
-//unde
-//sameer
-//aryan
-//tanish
-//jasjyot
-//dhwani
-
-//khush - IT
-//dev - IT
-//dhruv - AIDS
