@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use("/api/users", userRoute);
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
   connectDB();

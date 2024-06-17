@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 //register user account
 router.post("/register", async (req, res) => {
@@ -41,7 +42,7 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.send({
         success: false,
-        message: "User already exists",
+        message: "User does not exists",
       });
     }
     //valid password check
@@ -68,6 +69,24 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     res.send({
+      message: error.message,
+      success: false,
+    });
+  }
+});
+
+//get-user-info
+router.post("/get-user-info", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId);
+    user.password = "";
+    res.send({
+      message: "User info fetched successfully",
+      data: user,
+      success: true,
+    });
+  } catch (error) {
+    return res.send({
       message: error.message,
       success: false,
     });

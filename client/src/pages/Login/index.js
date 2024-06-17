@@ -12,7 +12,9 @@ const Index = () => {
       const response = await LoginUser(values);
       if (response.success) {
         message.success(response.message);
-        navigate("/dashboard");
+        localStorage.setItem("token", response.data);
+        window.location.href = "/";
+        navigate("/");
       } else {
         message.error(response.message);
       }
