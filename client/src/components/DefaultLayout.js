@@ -132,7 +132,3 @@ const DefaultLayout = ({ children }) => {
 };
 
 export default DefaultLayout;
-<<<<<<< HEAD
-=======
-
->>>>>>> f9501ad22ff849d0b19d494bf2c4abeab29e3903
