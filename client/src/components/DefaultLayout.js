@@ -100,13 +100,13 @@ const DefaultLayout = ({ children }) => {
       <div className="body">
         <div className="header flex justify-between items-center">
           <div className="text-secondary">
-            {collapsed && (
+            {!collapsed && (
               <i
                 class="ri-close-circle-fill"
                 onClick={() => setCollapsed(!collapsed)}
               ></i>
             )}
-            {!collapsed && (
+            {collapsed && (
               <i
                 class="ri-menu-line"
                 onClick={() => setCollapsed(!collapsed)}
@@ -132,17 +132,3 @@ const DefaultLayout = ({ children }) => {
 };
 
 export default DefaultLayout;
-
-//vaibhav wagh
-//satshil
-//me
-//unde
-//sameer
-//aryan
-//tanish
-//jasjyot
-//dhwani
-
-//khush - IT
-//dev - IT
-//dhruv - AIDS

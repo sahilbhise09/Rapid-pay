@@ -1,6 +1,6 @@
 .card {
   background-color: white;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.7);
 }
 
 .loader-parent {
@@ -20,6 +20,14 @@
   border-radius: 50%;
   border-top-color: black;
   animation: loader-anim 1s linear infinite;
+}
+
+table {
+  border: 1px solid #000;
+}
+
+.br-3 {
+  border-radius: 3px;
 }
 
 @keyframes loader-anim {

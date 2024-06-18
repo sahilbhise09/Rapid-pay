@@ -26,6 +26,10 @@
   text-align: right;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 .underline {
   text-decoration: underline;
   cursor: pointer;
@@ -37,4 +41,5 @@ h1 {
 
 i {
   font-size: 20px;
+  cursor: pointer;
 }

@@ -1,6 +1,7 @@
 :root {
   --primary: #002e2a;
   --secondary: #af8703;
+  --tertiary: #410303e4;
 }
 
 .bg-primary {
@@ -9,6 +10,10 @@
 
 .bg-secondary {
   background-color: var(--secondary) !important;
+}
+
+.bg-tertiary {
+  background-color: var(--tertiary) !important;
 }
 
 .text-primary {
@@ -25,4 +30,18 @@
 
 .text-black {
   color: #000 !important;
+}
+
+.success-bg {
+  background-color: #107010 !important;
+  color: white !important;
+  padding: 10px;
+  border-radius: 3px solid;
+}
+
+.error-bg {
+  background-color: #d3391b !important;
+  color: white !important;
+  padding: 10px;
+  border-radius: 3px solid;
 }

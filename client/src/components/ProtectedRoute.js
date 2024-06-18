@@ -42,8 +42,8 @@ const ProtectedRoute = (props) => {
     user && (
       <div>
         <DefaultLayout>
-          {" "}
-          {user.email}
+          {/* {" "}
+          {user.email} */}
           {props.children}
         </DefaultLayout>
       </div>
