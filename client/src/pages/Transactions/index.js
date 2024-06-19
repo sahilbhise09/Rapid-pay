@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loadersSlice";
 import { GetTransactionsofUser } from "../../apicalls/transactions";
 import moment from "moment";
+import DeposittModal from "./DeposittModal";
 
 const Index = () => {
   const [showTransferFundsModal, setShowTransferFundsModal] = useState(false);
   const [data = [], setData] = useState([]);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.users);
+  const [showDepositModal, setShowDepositModal] = useState(false);
   const columns = [
     {
       title: "Date",
@@ -35,7 +37,11 @@ const Index = () => {
       title: "Type",
       dataIndex: "type",
       render: (text, record) => {
-        return record.sender._id === user._id ? "Credit" : "Debit";
+        if (record.sender._id === record.receiver._id) {
+          return "Deposit";
+        } else if (record.sender._id == user._id) {
+          return "Debit";
+        } else return "Credit";
       },
     },
     {
@@ -91,7 +97,6 @@ const Index = () => {
       if (response.success) {
         setData(response.data);
       }
-      // console.log(response);
       dispatch(hideLoading());
     } catch (error) {
       dispatch(hideLoading());
@@ -108,7 +113,12 @@ const Index = () => {
       <div className="flex justify-between items-center">
         <PageTitle title="Transaction" />
         <div className="flex gap-1">
-          <button className="primary-contained-btn">Deposit</button>
+          <button
+            className="primary-contained-btn"
+            onClick={() => setShowDepositModal(true)}
+          >
+            Deposit
+          </button>
           <button
             className="primary-contained-btn"
             onClick={() => setShowTransferFundsModal(true)}
@@ -122,6 +132,15 @@ const Index = () => {
         <TransferFundsModal
           showTransferFundsModal={showTransferFundsModal}
           setShowTransferFundsModal={setShowTransferFundsModal}
+          reloadData={getData}
+        />
+      )}
+
+      {showDepositModal && (
+        <DeposittModal
+          showDepositModal={showDepositModal}
+          setShowDepositModal={setShowDepositModal}
+          reloadData={getData}
         />
       )}
     </div>

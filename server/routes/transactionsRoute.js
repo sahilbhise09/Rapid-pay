@@ -3,6 +3,9 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Transaction = require("../models/transactionModel");
 const User = require("../models/userModel");
 
+const stripe = require("stripe")(process.env.stripe_key);
+const { uuid } = require("uuidv4");
+
 //transfer money one account to another
 router.post("/transfer-fund", authMiddleware, async (req, res) => {
   try {
@@ -86,5 +89,64 @@ router.post(
     }
   }
 );
+
+// deposit funds using stripe
+router.post("/deposit-funds", authMiddleware, async (req, res) => {
+  try {
+    const { token, amount } = req.body;
+    //create a customer
+    const customer = await stripe.customers.create({
+      email: token.email,
+      source: token.id,
+    });
+
+    //create a charge
+    const charge = await stripe.charges.create(
+      {
+        amount: amount * 100,
+        currency: "usd",
+        customer: customer.id,
+        receipt_email: token.email,
+        description: "Deposited to Rapid-Pay",
+      },
+      { idempotencyKey: uuid() }
+    );
+
+    //save the transaction
+    if (charge.status === "succeeded") {
+      const newTransaction = new Transaction({
+        sender: req.body.userId,
+        receiver: req.body.userId,
+        amount: amount,
+        type: "deposit",
+        reference: "stripe deposit",
+        status: "success",
+      });
+      await newTransaction.save();
+
+      //increase the users balance
+      await User.findByIdAndUpdate(req.body.userId, {
+        $inc: { balance: amount },
+      });
+      res.send({
+        message: "Transaction successful",
+        data: newTransaction,
+        success: true,
+      });
+    } else {
+      res.send({
+        message: "Transaction failed",
+        data: charge,
+        success: false,
+      });
+    }
+  } catch (error) {
+    res.send({
+      message: "Transaction failed",
+      data: error.message,
+      success: false,
+    });
+  }
+});
 
 module.exports = router;
