@@ -7,11 +7,7 @@ const transactionsRoute = require("./routes/transactionsRoute.js");
 const requestsRoute = require("./routes/requestsRoute.js");
 const cors = require("cors");
 
-app.use(
-  cors({
-    orgin: "*",
-  })
-);
+app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
