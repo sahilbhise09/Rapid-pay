@@ -5,6 +5,7 @@ const connectDB = require("./config/dbConfig.js");
 const userRoute = require("./routes/usersRoute.js");
 const transactionsRoute = require("./routes/transactionsRoute.js");
 const requestsRoute = require("./routes/requestsRoute.js");
+const cors = require("cors");
 
 app.use(
   cors({
