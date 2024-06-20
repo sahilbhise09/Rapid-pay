@@ -6,6 +6,12 @@ const userRoute = require("./routes/usersRoute.js");
 const transactionsRoute = require("./routes/transactionsRoute.js");
 const requestsRoute = require("./routes/requestsRoute.js");
 
+app.use(
+  cors({
+    orgin: "*",
+  })
+);
+
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
