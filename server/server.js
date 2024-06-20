@@ -7,7 +7,13 @@ const transactionsRoute = require("./routes/transactionsRoute.js");
 const requestsRoute = require("./routes/requestsRoute.js");
 const cors = require("cors");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://rapid-pay-bay.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "authorization"],
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 
