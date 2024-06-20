@@ -5,7 +5,7 @@ const { axiosInstance } = require(".");
 export const VerifyAccount = async (payload) => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/transactions/verify-account",
+      "https://rapid-pay-szad.onrender.com/api/transactions/verify-account",
       payload
     );
     return data;
@@ -17,7 +17,7 @@ export const VerifyAccount = async (payload) => {
 export const GetTransactionsofUser = async () => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/transactions/get-all-transactions-by-user"
+      "https://rapid-pay-szad.onrender.com/api/transactions/get-all-transactions-by-user"
     );
     return data;
   } catch (error) {
@@ -29,7 +29,7 @@ export const GetTransactionsofUser = async () => {
 export const TransferFunds = async (payload) => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/transactions/transfer-fund",
+      "https://rapid-pay-szad.onrender.com/api/transactions/transfer-fund",
       payload
     );
     return data;
@@ -42,7 +42,7 @@ export const TransferFunds = async (payload) => {
 export const DepositFunds = async (payload) => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/transactions/deposit-funds",
+      "https://rapid-pay-szad.onrender.com/api/transactions/deposit-funds",
       payload
     );
     return data;

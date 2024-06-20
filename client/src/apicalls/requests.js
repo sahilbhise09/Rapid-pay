@@ -5,7 +5,7 @@ import { axiosInstance } from ".";
 export const GetAllRequestsByUser = async () => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/requests/get-all-requests-by-user"
+      "https://rapid-pay-szad.onrender.com/api/requests/get-all-requests-by-user"
     );
     console.log(data);
     return data;
@@ -18,7 +18,7 @@ export const GetAllRequestsByUser = async () => {
 export const SendRequest = async (request) => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/requests/send-request",
+      "https://rapid-pay-szad.onrender.com/api/requests/send-request",
       request
     );
     return data;
@@ -31,7 +31,7 @@ export const SendRequest = async (request) => {
 export const UpdateRequestStatus = async (request) => {
   try {
     const { data } = await axiosInstance.post(
-      "/api/requests/update-request-status",
+      "https://rapid-pay-szad.onrender.com/api/requests/update-request-status",
       request
     );
     return data;
