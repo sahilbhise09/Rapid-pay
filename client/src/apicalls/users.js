@@ -19,7 +19,10 @@ export const LoginUser = async (payload) => {
 
 export const RegisterUser = async (payload) => {
   try {
-    const { data } = await axiosInstance.post("/api/users/register", payload);
+    const { data } = await axiosInstance.post(
+      "https://rapid-pay-szad.onrender.com/api/users/register",
+      payload
+    );
     return data;
   } catch (error) {
     return error.response.data;
@@ -29,7 +32,9 @@ export const RegisterUser = async (payload) => {
 // get user info
 export const GetUserInfo = async () => {
   try {
-    const { data } = await axiosInstance.post("/api/users/get-user-info");
+    const { data } = await axiosInstance.post(
+      "https://rapid-pay-szad.onrender.com/api/users/get-user-info"
+    );
     return data;
   } catch (error) {
     return error.response.data;
