@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Modal, Form, message } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/loadersSlice";
-import { TransferFunds, VerifyAccount } from "../../apicalls/transactions";
-import { ReloadUser, reloadUser } from "../../redux/usersSlice";
-function TransferFundsModal({
-  showTransferFundsModal,
-  setShowTransferFundsModal,
+import { VerifyAccount } from "../../apicalls/transactions";
+import { SendRequest } from "../../apicalls/requests";
+function NewRequestModal({
+  showNewRequestModal,
+  setShowNewRequestModal,
   reloadData,
 }) {
-  const { user, reloadUser } = useSelector((state) => state.users);
+  const { user } = useSelector((state) => state.users);
   const [isVerified, setIsVerified] = useState("");
   const [form] = Form.useForm();
   const dispatch = useDispatch();
@@ -33,6 +33,10 @@ function TransferFundsModal({
 
   const onFinish = async (values) => {
     try {
+      if (values.amount > user.balance) {
+        message.error("Insufficient Balance");
+        return;
+      }
       dispatch(showLoading());
       const payload = {
         ...values,
@@ -40,12 +44,10 @@ function TransferFundsModal({
         reference: values.reference || "no reference",
         status: "success",
       };
-      const response = await TransferFunds(payload);
+      const response = await SendRequest(payload);
       if (response.success) {
-        reloadData();
-        setShowTransferFundsModal(false);
+        setShowNewRequestModal(false);
         message.success(response.message);
-        dispatch(ReloadUser(true));
       }
       dispatch(hideLoading());
     } catch (error) {
@@ -56,10 +58,10 @@ function TransferFundsModal({
   return (
     <div>
       <Modal
-        title="transfer funds"
-        open={showTransferFundsModal}
-        onClose={() => setShowTransferFundsModal(false)}
-        onCancel={() => setShowTransferFundsModal(false)}
+        title="Request funds"
+        open={showNewRequestModal}
+        onClose={() => setShowNewRequestModal(false)}
+        onCancel={() => setShowNewRequestModal(false)}
         footer={null}
       >
         <Form layout="vertical" form={form} onFinish={onFinish}>
@@ -94,22 +96,22 @@ function TransferFundsModal({
                 required: true,
                 message: "Please input your amount",
               },
-              {
-                max: user.balance,
-                message: "Insufficient balance",
-              },
+              // {
+              //   max: user.balance,
+              //   message: "Insufficient balance",
+              // },
             ]}
           >
             <input type="text" />
           </Form.Item>
-          <Form.Item label="Reference" name="reference">
+          <Form.Item label="Description" name="description">
             <textarea type="text" />
           </Form.Item>
 
           <div className="flex justify-end gap-1">
             <button className="primary-outlined-btn">Cancel</button>
             {isVerified && (
-              <button className="primary-contained-btn">Transfer</button>
+              <button className="primary-contained-btn">Request</button>
             )}
           </div>
         </Form>
@@ -118,4 +120,4 @@ function TransferFundsModal({
   );
 }
 
-export default TransferFundsModal;
+export default NewRequestModal;

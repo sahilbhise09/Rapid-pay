@@ -14,6 +14,7 @@ import PublicRoute from "./components/PublicRoute.js";
 import Loader from "./components/Loader.js";
 import { useSelector } from "react-redux";
 import Transactions from "./pages/Transactions/index.js";
+import Requests from "./pages/Request/index.js";
 
 function App() {
   const { loading } = useSelector((state) => state.loaders);
@@ -51,6 +52,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Transactions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/requests"
+            element={
+              <ProtectedRoute>
+                <Requests />
               </ProtectedRoute>
             }
           />
