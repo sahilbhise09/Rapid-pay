@@ -39,7 +39,7 @@ const Index = () => {
       render: (text, record) => {
         if (record.sender._id === record.receiver._id) {
           return "Deposit";
-        } else if (record.sender._id == user._id) {
+        } else if (record.sender._id === user._id) {
           return "Debit";
         } else return "Credit";
       },
